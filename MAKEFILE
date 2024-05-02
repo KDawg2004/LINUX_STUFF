@@ -1,0 +1,43 @@
+  1 #makefile for a made up program named procSim
+  2 #Author: Kaevin Barta
+  3 #File: Makefile
+  4 #Date: Oct 24th
+  5
+  6 #MACROS/VARS
+  7 PROG = procSim
+  8 CXX = g++
+  9 FLAGS = -Wall
+ 10
+ 11 #all .cpp files into sources(didnt acually use this but good practice)
+ 12 SRCS = procSim.cpp priQueueInt.cpp queueInt.cpp
+ 13
+ 14 #files that the linking prosses  will look for
+ 15 OBJS = procSim.o priQueueInt.o queueInt.o
+ 16
+ 17 #Header files are dependent on cpp files to run(didnt implement)
+ 18 DEPS = priQueueInt.h queueInt.h
+ 19
+ 20 #compliles the process sim, dependent on priQueueInt.h & queueInt.h & .cpp
+ 21 procSim.o: procSim.cpp priQueueInt.h queueInt.h
+ 22     echo "Compiling the procSim file"
+ 23     $(CXX) $(FLAGS) -c  procSim.cpp
+ 24
+ 25 #compiles the priQueueInt.o file which is dependent on the two header files&.cpp
+ 26 priQueueInt.o: priQueueInt.cpp priQueueInt.h queueInt.h
+ 27     echo "Compiling the priQueueInt file"
+ 28     $(CXX) $(FLAGS) -c  priQueueInt.cpp
+ 29
+ 30 #Compliles the queueInt.o file which is dependent on the header file & .cpp
+ 31 queueInt.o: queueInt.cpp queueInt.h
+ 32     echo "compiling the queueInt file"
+ 33     $(CXX) $(FLAGS) -c  queueInt.cpp
+ 34
+ 35 #finaly links the three together and produces procSim
+ 36 procSim: procSim.o priQueueInt.o queueInt.o
+ 37     echo "linking and producing final application"
+ 38     $(CXX) $(FLAGS) -o $(PROG)  $(OBJS)
+ 39
+ 40 clean:
+ 41     rm  $(PROG) $(OBJS)
+ 42
+ 43
